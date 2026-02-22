@@ -8,7 +8,6 @@
 - 点击截图进入演示：
 
 [![在线演示截图](doc/screenshot.png)](https://preservation.blazorserver.com/)
-![](/doc/screenshot.png)
 ## 项目背景
 
 根据 `doc/1_南海法院财保案件查询系统需求确认书V0.1-1108(1).docx` 和 `doc/1_南海法院案件二期.docx`，本系统用于解决财保案件数量大、人工跟踪难、流程监管成本高的问题，目标是在内网环境下实现可追踪、可审计、可预警的案件管理平台。
