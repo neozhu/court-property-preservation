@@ -1,0 +1,303 @@
+﻿﻿@model WebApp.Models.LegalCase
+<!-- 弹出窗体form表单 -->
+<div id="uploadfileswindow" hidden="hidden" class="easyui-window"
+     title="案件附件上传"
+     data-options="modal:true,
+                    closed:true,
+                    minimizable:false,
+                    collapsible:false,
+                    maximized:false,
+                    iconCls:'icon-more',
+                    onBeforeClose:function(){
+
+                    },
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                       $(this).window('hcenter');
+                    },
+                    onRestore:function(){
+                    },
+                    onMaximize:function(){
+                    }
+                    " style="width:620px;height:250px">
+  <!-- begin toolbar -->
+  <div class="window-body-toolbar">
+    <div class="row">
+      <div class="col-md-2">
+        <input type="file" id="filepond"
+               class="filepond"
+               name="filepond" multiple
+               accept="*"
+               data-max-file-size="500MB"
+               data-max-files="100">
+      </div>
+      <div id="attachmentsdiv">
+
+      </div>
+
+    </div>
+  </div>
+  <!-- end toolbar -->
+  <!-- begin window body -->
+  <div class="widget-body padding-10">
+    <form id="legalcasefiles_form"
+          class="easyui-form form-horizontal padding-10"
+          method="post"
+          data-options="novalidate:true,
+                            onChange: function(target){
+                              hook = true;
+                            },
+                             onLoadSuccess:function(data){
+                               hook = false;
+
+                             }">
+      <fieldset>
+        <legend>附件信息</legend>
+        <div class="form-group  col-md-12">
+          <div class="col-md-2">
+            <input type="file" id="filepond"
+                   class="filepond"
+                   name="filepond" multiple
+                   accept="*"
+                   data-max-file-size="50MB"
+                   data-max-files="100">
+          </div>
+          <div id="attachmentsdiv">
+
+          </div>
+        </div>
+      </fieldset>
+        <fieldset>
+          <legend>立案信息</legend>
+          <!-- begin row -->
+          <!--档案编号-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.CaseId)</span></label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.CaseId)"
+                     name="@Html.NameFor(model => model.CaseId)"
+                     value="@Html.ValueFor(model => model.CaseId)"
+                     tabindex="0" required
+                     class="easyui-textbox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.CaseId)',
+								 required:true,readonly:true,
+                                 validType: 'length[0,50]'
+                                 " />
+            </div>
+          </div>
+          <!--案件类型-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.Category)</span></label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.Category)"
+                     name="@Html.NameFor(model => model.Category)"
+                     value="@Html.ValueFor(model => model.Category)"
+                     tabindex="2" required
+                     class="easyui-combobox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.Category)',
+								 required:true,data:categorydatasource,editable:false,readonly:true,
+                                 validType: 'length[0,20]'
+                                 " />
+            </div>
+          </div>
+          <!--立案部门-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.FromDepartment)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.FromDepartment)"
+                     name="@Html.NameFor(model => model.FromDepartment)"
+                     value="@Html.ValueFor(model => model.FromDepartment)"
+                     tabindex="9"
+                     class="easyui-combobox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.FromDepartment)',
+								 required:false,readonly:true,data:deptdatasource,editable:false,validType: 'length[0,20]'
+                                 " />
+            </div>
+          </div>
+          <!--案件原由-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Cause)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.Cause)"
+                     name="@Html.NameFor(model => model.Cause)"
+                     value="@Html.ValueFor(model => model.Cause)"
+                     tabindex="5"
+                     class="easyui-textbox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.Cause)',
+								 required:false, validType: 'length[0,50]',readonly:true,
+                                 " />
+            </div>
+          </div>
+          <!--申请保全人-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Accuser)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.Accuser)"
+                     name="@Html.NameFor(model => model.Accuser)"
+                     value="@Html.ValueFor(model => model.Accuser)"
+                     tabindex="25"
+                     class="easyui-textbox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.Accuser)',
+								 required:false,readonly:true,validType: 'length[0,2000]'
+                                 " />
+            </div>
+          </div>
+          <!--end row-->
+          <!-- begin row -->
+          <!--申请保全人地址-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.AccuserAddress)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.AccuserAddress)"
+                     name="@Html.NameFor(model => model.AccuserAddress)"
+                     value="@Html.ValueFor(model => model.AccuserAddress)"
+                     tabindex="26"
+                     class="easyui-textbox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.AccuserAddress)',
+								 required:false,readonly:true,validType: 'length[0,2000]'
+                                 " />
+            </div>
+          </div>
+          <!--被保全人-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Defendant)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.Defendant)"
+                     name="@Html.NameFor(model => model.Defendant)"
+                     value="@Html.ValueFor(model => model.Defendant)"
+                     tabindex="27"
+                     class="easyui-textbox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.Defendant)',
+								 required:false,readonly:true,validType: 'length[0,2000]'
+                                 " />
+            </div>
+          </div>
+
+          <!--end row-->
+          <!-- begin row -->
+          <!--被保全人地址-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.DefendantAddress)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.DefendantAddress)"
+                     name="@Html.NameFor(model => model.DefendantAddress)"
+                     value="@Html.ValueFor(model => model.DefendantAddress)"
+                     tabindex="28"
+                     class="easyui-textbox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.DefendantAddress)',
+								 required:false,readonly:true,validType: 'length[0,2000]'
+                                 " />
+            </div>
+          </div>
+        </fieldset>
+    </form>
+  </div>
+</div>
+<!--end window body -->
+
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+<!-- 弹出编辑对话框 -->
+<!--begin popup detailview javascript block -->
+<script type="text/javascript">
+
+  function openuploadfileswindow(data, disabled) {
+    $('#uploadfileswindow').window('open');
+    $('#legalcasefiles_form').form('reset');
+    $('#legalcasefiles_form').form('load', data);
+    $('#legalcasefiles_form').form('disable');
+    loadAttachments();
+
+    FilePond.registerPlugin(
+      FilePondPluginFileValidateSize
+    );
+    FilePond.setOptions({
+      instantUpload: true,
+      labelIdle: '请上传相关材料  <span class="filepond--label-action"> 选择 </span>',
+      server: {
+        timeout: 7000,
+        process: {
+          url: '/LegalCases/UploadFile',
+          method: 'POST',
+          ondata: (formData) => {
+            formData.append('CaseId', legalcaseid);
+            return formData;
+          },
+          onerror: (response) => {
+            console.log(response);
+          },
+          onload: (response) => {
+            setTimeout(() => {
+              loadAttachments()
+
+            }, 500);
+            return response;
+          },
+        },
+        revert: '/LegalCases/Revert',
+      },
+
+    })
+    const inputElement = document.querySelector('input[id="filepond"]');
+    const pond = FilePond.create(inputElement);
+
+  }
+  function downloadfile(path) {
+    //默认模板路径存放位置
+    const url = `/FileUpload/Download?file=${path}`;
+    $.fileDownload(url)
+      .done(() => {
+        //console.log('file download a success!');
+        toastr.success('下载完成!');
+      })
+      .fail(() => {
+        $.messager.alert('下载失败', '没有找到文件!', 'error');
+      });
+  }
+  //获取附件
+  function loadAttachments() {
+    const caseid = $('#legalcasefiles_form #CaseId').textbox('getValue');
+    const url = `/Attachments/GetAttachments?caseid=${caseid}`;
+    $.get(url).done(res => {
+      console.log(res)
+      if (res) {
+        $('#legalcasefiles_form #attachmentsdiv').empty()
+        res.forEach(item => {
+          const html = `<div class="col-md-2">
+              <div class="thumbnail">
+                <img src="/Content/img/doc.jpg" alt="${item.DocId}">
+                <div class="caption">
+                  <p>${item.Type}</p>
+                  <p style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">${item.DocId}</p>
+                  <p>
+<a href="#" onclick="downloadfile('${item.Path}')" class="btn btn-sm btn-primary" role="button">下载</a>
+<a href="#" class="btn btn-sm btn-default" role="button">删除</a></p>
+                </div>
+              </div>
+            </div>`
+          $('#legalcasefiles_form #attachmentsdiv').append(html);
+        })
+      }
+    })
+  }
+  function closeuploadfileswindow() {
+    $('#uploadfileswindow').window("close");
+  }
+</script>
+

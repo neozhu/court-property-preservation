@@ -1,0 +1,52 @@
+﻿﻿@model WebApp.Models.NodeTime
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin nodetime form  -->
+<form id="nodetime_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--案件类型-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Category)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Category)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--节点-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Node)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Node)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--天数-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Days)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Days)
+			    </label>
+            </section>
+		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end nodetime form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

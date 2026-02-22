@@ -1,0 +1,948 @@
+﻿﻿@model WebApp.Models.LegalCase
+<!-- 弹出窗体form表单 -->
+<div id="legalcasedetailwindow" hidden="hidden" class="easyui-window"
+     title="案件信息"
+     data-options="modal:true,
+                    closed:true,
+                    minimizable:false,
+                    collapsible:false,
+                    maximized:false,
+                    iconCls:'icon-more',
+                    footer:'#windowfooter',
+                    closeDuration:200,
+                    closeAnimation:'slide',
+                    openDuration:300,
+                    openAnimation:'slide',
+                    onBeforeClose:function(){
+                      var that = $(this);
+                      if(legalcasehasmodified()){
+                        $.messager.confirm('确认','你确定要放弃保存修改的记录?',function(r){
+                        if (r){
+                          var opts = that.panel('options');
+                          var onBeforeClose = opts.onBeforeClose;
+                          opts.onBeforeClose = function(){};
+                          that.panel('close');
+                          opts.onBeforeClose = onBeforeClose;
+                          hook = false;
+                        }
+                        });
+                        return false;
+                      }
+                    },
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                       $(this).window('hcenter');
+                    },
+                    onRestore:function(){
+                    },
+                    onMaximize:function(){
+                    }
+                    " style="width:1020px;height:560px">
+  <!-- begin toolbar -->
+  <div class="window-body-toolbar">
+    <div class="row">
+      <div class="col-sm-8">
+
+        <div class="btn-group btn-group-sm" id="complete-btn-group" style="display:none">
+          <button onclick="todoCompete()" class="btn btn-default btn-success">
+            <i class="fa fa-archive"></i> 案件归档
+          </button>
+        </div>
+      </div>
+      <div class="col-sm-4 text-align-right">
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn   btn-success" onclick="closelegalcasedetailwindow()">
+            <i class="fa fa-chevron-left"></i>
+            @Html.L("Close")
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end toolbar -->
+  <!-- begin window body -->
+  <div class="widget-body">
+    <form id="legalcase_form"
+          class="easyui-form form-horizontal padding-10"
+          method="post"
+          data-options="novalidate:true,
+                            onChange: function(target){
+                              hook = true;
+                              $('button[name*=\'saveitembutton\']').prop('disabled', false);
+                             },
+                             onLoadSuccess:function(data){
+                               hook = false;
+                               $('button[name*=\'saveitembutton\']').prop('disabled', true);
+                             }">
+      @Html.AntiForgeryToken()
+      <!--Primary Key-->
+      @Html.HiddenFor(model => model.Id)
+      <!--节点-->
+      @Html.HiddenFor(model => model.Node)
+
+      <fieldset>
+        <legend>案件信息</legend>
+        <!-- begin row -->
+        <!--档案编号-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.CaseId)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.CaseId)"
+                   name="@Html.NameFor(model => model.CaseId)"
+                   value="@Html.ValueFor(model => model.CaseId)"
+                   tabindex="0" required
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.CaseId)',
+								 required:true,readonly:true,
+                                 validType: 'length[0,128]'
+                                 " />
+          </div>
+        </div>
+        <!--案件名称-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Project)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Project)"
+                   name="@Html.NameFor(model => model.Project)"
+                   value="@Html.ValueFor(model => model.Project)"
+                   tabindex="1"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Project)',
+								 required:false,readonly:true,
+                                
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--状态-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Status)"
+                   name="@Html.NameFor(model => model.Status)"
+                   value="@Html.ValueFor(model => model.Status)"
+                   tabindex="3" required
+                   class="easyui-combobox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Status)',
+								 required:true,readonly:true,data:statusdatasource,editable:false,validType: 'length[0,10]'
+                                 " />
+          </div>
+        </div>
+        <!--收案日期-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.ReceiveDate)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.ReceiveDate)"
+                   name="@Html.NameFor(model => model.ReceiveDate)"
+                   value="@Html.ValueFor(model => model.ReceiveDate)"
+                   tabindex="15"
+                   class="easyui-datebox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.ReceiveDate)',
+								 required:false,readonly:true,
+								 formatter:dateformatter" />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--立案日期-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.RegisterDate)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.RegisterDate)"
+                   name="@Html.NameFor(model => model.RegisterDate)"
+                   value="@Html.ValueFor(model => model.RegisterDate)"
+                   tabindex="16" required
+                   class="easyui-datebox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.RegisterDate)',
+								 required:true,readonly:true,
+								 formatter:dateformatter" />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--限期-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.Expires)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Expires)"
+                   name="@Html.NameFor(model => model.Expires)"
+                   value="@Html.ValueFor(model => model.Expires)"
+                   tabindex="4"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Expires)',
+								          required:true,readonly:true" />
+          </div>
+        </div>
+        <!--申请执行标的-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.PreUnderlyingAsset)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.PreUnderlyingAsset)"
+                   name="@Html.NameFor(model => model.PreUnderlyingAsset)"
+                   value="@Html.ValueFor(model => model.PreUnderlyingAsset)"
+                   tabindex="17"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.PreUnderlyingAsset)',
+								 required:true,readonly:true,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--结案标的-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.UnderlyingAsset)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.UnderlyingAsset)"
+                   name="@Html.NameFor(model => model.UnderlyingAsset)"
+                   value="@Html.ValueFor(model => model.UnderlyingAsset)"
+                   tabindex="22"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.UnderlyingAsset)',
+								 required:true,readonly:true,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--立案部门-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.FromDepartment)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.FromDepartment)"
+                   name="@Html.NameFor(model => model.FromDepartment)"
+                   value="@Html.ValueFor(model => model.FromDepartment)"
+                   tabindex="9"
+                   class="easyui-combobox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.FromDepartment)',
+								 required:false,readonly:true,valueField: 'Name',textField: 'Name',editable:false,validType: 'length[0,20]'
+                                 " />
+          </div>
+        </div>
+        <!--案件原由-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Cause)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Cause)"
+                   name="@Html.NameFor(model => model.Cause)"
+                   value="@Html.ValueFor(model => model.Cause)"
+                   tabindex="5"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Cause)',
+								 required:false,readonly:true,
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--案件特征-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Feature)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Feature)"
+                   name="@Html.NameFor(model => model.Feature)"
+                   value="@Html.ValueFor(model => model.Feature)"
+                   tabindex="6"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Feature)',
+								 required:false,readonly:true,
+                                
+                                 " />
+          </div>
+        </div>
+        <!--执行依据文号-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.BasedOn)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.BasedOn)"
+                   name="@Html.NameFor(model => model.BasedOn)"
+                   value="@Html.ValueFor(model => model.BasedOn)"
+                   tabindex="7"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.BasedOn)',
+								 required:false,readonly:true,
+                                
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--执行主体-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Subject)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Subject)"
+                   name="@Html.NameFor(model => model.Subject)"
+                   value="@Html.ValueFor(model => model.Subject)"
+                   tabindex="8"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Subject)',
+								 required:false,readonly:true,
+                                
+                                 " />
+          </div>
+        </div>
+
+        <!--end row-->
+        <!-- begin row -->
+        <!--承办部门-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.ToDepartment)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.ToDepartment)"
+                   name="@Html.NameFor(model => model.ToDepartment)"
+                   value="@Html.ValueFor(model => model.ToDepartment)"
+                   tabindex="10"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.ToDepartment)',
+								 required:false,validType: 'length[0,20]',readonly:true,
+                                 " />
+          </div>
+        </div>
+        <!--承办人-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.ToUser)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.ToUser)"
+                   name="@Html.NameFor(model => model.ToUser)"
+                   value="@Html.ValueFor(model => model.ToUser)"
+                   tabindex="11"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.ToUser)',
+								 required:false,readonly:true,
+                                 validType: 'length[0,20]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--书记员-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Recorder)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Recorder)"
+                   name="@Html.NameFor(model => model.Recorder)"
+                   value="@Html.ValueFor(model => model.Recorder)"
+                   tabindex="12"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Recorder)',
+								 required:false,readonly:true,
+                                 validType: 'length[0,20]'
+                                 " />
+          </div>
+        </div>
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.ToManager)</span></label>
+          <div class="col-md-9">
+            <label class="checkbox-inline">
+              <input id="@Html.IdFor(model => model.ToManager)"
+                     name="@Html.NameFor(model => model.ToManager)"
+                     value="true"
+                     data-unchecked-value="false"
+                     tabindex="6" onclick="return false"
+                     class="checkbox style-0"
+                     type="checkbox" />
+              <span> </span>
+            </label>
+          </div>
+        </div>
+        <!--部门领导-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Manager)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Manager)"
+                   name="@Html.NameFor(model => model.Manager)"
+                   value="@Html.ValueFor(model => model.Manager)"
+                   tabindex="13"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Manager)',
+								 required:false,readonly:true,
+                                 validType: 'length[0,20]'
+                                 " />
+          </div>
+        </div>
+        <!--立案审查人-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Examiner)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Examiner)"
+                   name="@Html.NameFor(model => model.Examiner)"
+                   value="@Html.ValueFor(model => model.Examiner)"
+                   tabindex="13"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Examiner)',
+								 required:false,readonly:true,
+                                 validType: 'length[0,20]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--原案（执行）案号-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.OriginCaseId)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.OriginCaseId)"
+                   name="@Html.NameFor(model => model.OriginCaseId)"
+                   value="@Html.ValueFor(model => model.OriginCaseId)"
+                   tabindex="14"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.OriginCaseId)',
+								 required:false,readonly:true,
+                                
+                                 " />
+          </div>
+        </div>
+
+
+        <!--end row-->
+        <!-- begin row -->
+        <!--分案时间-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.AllocateDate)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.AllocateDate)"
+                   name="@Html.NameFor(model => model.AllocateDate)"
+                   value="@Html.ValueFor(model => model.AllocateDate)"
+                   tabindex="18"
+                   class="easyui-datebox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.AllocateDate)',
+								 required:false,readonly:true,
+								 formatter:dateformatter" />
+          </div>
+        </div>
+        <!--应结案日期-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.PreCloseDate)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.PreCloseDate)"
+                   name="@Html.NameFor(model => model.PreCloseDate)"
+                   value="@Html.ValueFor(model => model.PreCloseDate)"
+                   tabindex="19"
+                   class="easyui-datebox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.PreCloseDate)',
+								 required:false,readonly:true,
+								 formatter:dateformatter" />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--结案日期-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.ClosedDate)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.ClosedDate)"
+                   name="@Html.NameFor(model => model.ClosedDate)"
+                   value="@Html.ValueFor(model => model.ClosedDate)"
+                   tabindex="20"
+                   class="easyui-datebox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.ClosedDate)',
+								 required:false,readonly:true,
+								 formatter:dateformatter" />
+          </div>
+        </div>
+        <!--结案方式-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.CloseType)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.CloseType)"
+                   name="@Html.NameFor(model => model.CloseType)"
+                   value="@Html.ValueFor(model => model.CloseType)"
+                   tabindex="21"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.CloseType)',
+								 required:false,readonly:true,
+                                 validType: 'length[0,50]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--所属法庭-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Court)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Court)"
+                   name="@Html.NameFor(model => model.Court)"
+                   value="@Html.ValueFor(model => model.Court)"
+                   tabindex="23"
+                   class="easyui-combobox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Court)',
+								 required:false,validType: 'length[0,50]',valueField: 'Name',textField: 'Name',editable:false,
+                                 " />
+          </div>
+        </div>
+
+        <!--end row-->
+        <!-- begin row -->
+        <!--所属法院-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Org)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Org)"
+                   name="@Html.NameFor(model => model.Org)"
+                   value="@Html.ValueFor(model => model.Org)"
+                   tabindex="24"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Org)',
+								 required:false, validType: 'length[0,50]'
+                                 " />
+          </div>
+        </div>
+
+
+        <!--申请保全人-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Accuser)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Accuser)"
+                   name="@Html.NameFor(model => model.Accuser)"
+                   value="@Html.ValueFor(model => model.Accuser)"
+                   tabindex="25"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Accuser)',
+								 required:false,readonly:true,
+                                
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--申请保全人地址-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.AccuserAddress)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.AccuserAddress)"
+                   name="@Html.NameFor(model => model.AccuserAddress)"
+                   value="@Html.ValueFor(model => model.AccuserAddress)"
+                   tabindex="26"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.AccuserAddress)',
+								 required:false,readonly:true,
+                                
+                                 " />
+          </div>
+        </div>
+        <!--被保全人-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Defendant)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Defendant)"
+                   name="@Html.NameFor(model => model.Defendant)"
+                   value="@Html.ValueFor(model => model.Defendant)"
+                   tabindex="27"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Defendant)',
+								 required:false,readonly:true,
+                                
+                                 " />
+          </div>
+        </div>
+
+        <!--end row-->
+        <!-- begin row -->
+        <!--被保全人地址-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.DefendantAddress)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.DefendantAddress)"
+                   name="@Html.NameFor(model => model.DefendantAddress)"
+                   value="@Html.ValueFor(model => model.DefendantAddress)"
+                   tabindex="28"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.DefendantAddress)',
+								 required:false,readonly:true,
+                                 
+                                 " />
+          </div>
+        </div>
+
+        <!--end row-->
+        <!-- begin row -->
+        <!--应收执行费-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.Receivable)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Receivable)"
+                   name="@Html.NameFor(model => model.Receivable)"
+                   value="@Html.ValueFor(model => model.Receivable)"
+                   tabindex="29"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Receivable)',
+								 required:true,readonly:true,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--已收执行费-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.Received)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Received)"
+                   name="@Html.NameFor(model => model.Received)"
+                   value="@Html.ValueFor(model => model.Received)"
+                   tabindex="30"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Received)',
+								 required:true,readonly:true,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--承办人意见-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Opinion1)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Opinion1)"
+                   name="@Html.NameFor(model => model.Opinion1)"
+                   value="@Html.ValueFor(model => model.Opinion1)"
+                   tabindex="31"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Opinion1)',
+								 required:false,
+                                
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--立案组意见-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Opinion2)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Opinion2)"
+                   name="@Html.NameFor(model => model.Opinion2)"
+                   value="@Html.ValueFor(model => model.Opinion2)"
+                   tabindex="32"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Opinion2)',
+								 required:false,
+                                
+                                 " />
+          </div>
+        </div>
+        <!--院长批示-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Opinion3)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Opinion3)"
+                   name="@Html.NameFor(model => model.Opinion3)"
+                   value="@Html.ValueFor(model => model.Opinion3)"
+                   tabindex="33"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Opinion3)',
+								 required:false,
+                              
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--备注-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Comment)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Comment)"
+                   name="@Html.NameFor(model => model.Comment)"
+                   value="@Html.ValueFor(model => model.Comment)"
+                   tabindex="34"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Comment)',
+								 required:false,readonly:true,
+                                
+                                 " />
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <!--填表人-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Proposer)</label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.Proposer)"
+                   name="@Html.NameFor(model => model.Proposer)"
+                   value="@Html.ValueFor(model => model.Proposer)"
+                   tabindex="35"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Proposer)',
+								 required:false,readonly:true,
+                                 validType: 'length[0,20]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--填表日期-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.FilingDate)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.FilingDate)"
+                   name="@Html.NameFor(model => model.FilingDate)"
+                   value="@Html.ValueFor(model => model.FilingDate)"
+                   tabindex="36" required
+                   class="easyui-datebox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.FilingDate)',
+								 required:true,readonly:true,
+								 formatter:dateformatter" />
+          </div>
+        </div>
+        <!--填表日期-->
+        <div class="form-group  col-md-6" style="display:none">
+          <label class="col-md-3 control-label"><span class="required">@Html.DisplayNameFor(model => model.ToDoDate)</span></label>
+          <div class="col-md-9">
+            <input id="@Html.IdFor(model => model.ToDoDate)"
+                   name="@Html.NameFor(model => model.ToDoDate)"
+                   value="@Html.ValueFor(model => model.ToDoDate)"
+                   tabindex="36" required
+                   class="easyui-datebox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.ToDoDate)',
+								 required:true,
+								 formatter:dateformatter" />
+          </div>
+        </div>
+        <!--end row-->
+      </fieldset>
+      <fieldset id="step3">
+        <legend>附件管理</legend>
+        <div class="form-group  col-md-12">
+          <div class="col-md-2">
+            <input type="file" id="filepond"
+                   class="filepond"
+                   name="filepond" multiple
+                   accept="*"
+                   data-max-file-size="50MB"
+                   data-max-files="100">
+          </div>
+          <div id="attachmentsdiv">
+
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+    <!--end form表单界面-->
+    <!--========================================================================================-->
+  </div>
+  <!--end window body -->
+</div>
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+<!-- 弹出编辑对话框 -->
+<!--begin popup detailview javascript block -->
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    
+  });
+  //判断新增编辑状态
+  var MODELSTATE = 'Added';
+  var legalcaseid = null;
+  function openlegalcasedetailwindow(data, state) {
+    MODELSTATE = state;
+    legalcaseid = (data.Id || 0);
+    $('#legalcasedetailwindow').window('open');
+    $('#legalcase_form').form('reset');
+    $('#legalcase_form').form('load', data);
+
+    var url = `/Courts/GetComboData?name=${data.Org}`;
+    
+    $('#legalcase_form #Court').combobox('reload', url);
+    $('#legalcase_form #FromDepartment').combobox('reload', url);
+
+
+    FilePond.registerPlugin(
+      FilePondPluginFileValidateSize
+    );
+    FilePond.setOptions({
+      instantUpload: true,
+      labelIdle: '请上传相关材料  <span class="filepond--label-action"> 选择 </span>',
+      server: {
+        timeout: 7000,
+        process: {
+          url: '/LegalCases/UploadFile',
+          method: 'POST',
+          ondata: (formData) => {
+            formData.append('CaseId', legalcaseid);
+            return formData;
+          },
+          onerror: (response) => {
+            console.log(response);
+          },
+          onload: (response) => {
+            setTimeout(() => {
+              loadAttachments()
+
+            }, 500);
+            return response;
+          },
+        },
+        revert: '/LegalCases/Revert',
+      },
+
+    })
+    const inputElement = document.querySelector('input[id="filepond"]');
+    const pond = FilePond.create(inputElement);
+    loadAttachments()
+  }
+  //下载文件
+  function downloadfile(path) {
+    //默认模板路径存放位置
+    const url = `/FileUpload/Download?file=${path}`;
+    $.fileDownload(url)
+      .done(() => {
+        //console.log('file download a success!');
+        toastr.success('下载完成!');
+      })
+      .fail(() => {
+        $.messager.alert('下载失败', '没有找到文件!', 'error');
+      });
+  }
+  //删除文件
+  function deletefile(id) {
+    const url = `/Attachments/Delete/${id}`;
+    $.messager.confirm('确认', `你确定要删除这个附件吗?`, result => {
+      if (result) {
+        $.get(url).done(res => {
+          $(`#attachment_${id}`).remove();
+        });
+      }
+    })
+  }
+  //获取附件
+  function loadAttachments() {
+    const caseid = $('#legalcase_form #CaseId').textbox('getValue');
+    const url = `/Attachments/GetAttachments?caseid=${caseid}`;
+    $.get(url).done(res => {
+      console.log(res)
+      if (res) {
+        $('#attachmentsdiv').empty()
+        res.forEach(item => {
+          const html = `<div class="col-md-2" id="attachment_${item.Id}">
+              <div class="thumbnail">
+                <img src="/Content/img/doc.jpg" alt="${item.DocId}">
+                <div class="caption">
+                  <p>${item.Type}</p>
+                  <p style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">${item.DocId}</p>
+                  <p><a href="#" onclick="downloadfile('${item.Path}')" class="btn btn-sm btn-primary" role="button">下载</a>
+                     <a href="#" onclick="deletefile(${item.Id})" class="btn btn-sm btn-default" role="button">删除</a></p>
+                </div>
+              </div>
+            </div>`
+          $('#attachmentsdiv').append(html);
+        })
+      }
+    })
+  }
+  
+  //关闭窗口
+  function closelegalcasedetailwindow() {
+    $('#legalcasedetailwindow').window('close');
+  }
+  //todo
+  function todoCompete() {
+    const url = `/LegalCases/ArchiveTask/${legalcaseid}`;
+    $.messager.progress({ title: '请等待', msg: '正在归档...', interval: 200 });
+    $.get(url).done(response => {
+      $.messager.progress('close');
+      if (response.success) {
+        hook = false;
+        $dg.datagrid('reload');
+        $('#legalcasedetailwindow').window("close");
+       
+      } else {
+        $.messager.alert("错误", response.err, "error");
+      }
+    });
+  }
+  //判断是否有没有保存的记录
+  function legalcasehasmodified() {
+    return hook;
+
+  }
+
+
+  
+</script>
+

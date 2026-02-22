@@ -1,0 +1,235 @@
+﻿﻿@model WebApp.Models.ViewModel.AssigningViewModel
+<!-- 弹出窗体form表单 -->
+<div id="changeassigningwindow" hidden="hidden" class="easyui-window"
+     title="批量分案处理"
+     data-options="modal:true,
+                    closed:true,
+                    minimizable:false,
+                    collapsible:false,
+                    maximized:false,
+                    iconCls:'icon-more',
+                    footer:'#windowfooter',
+                    closeDuration:200,
+                    closeAnimation:'slide',
+                    openDuration:300,
+                    openAnimation:'slide',
+                    onBeforeClose:function(){
+                     
+                    },
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                       $(this).window('hcenter');
+                    },
+                    onRestore:function(){
+                    },
+                    onMaximize:function(){
+                    }
+                    " style="width:800px;height:400px">
+  <!-- begin toolbar -->
+  <div class="window-body-toolbar">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="btn-group btn-group-sm">
+          <button name="saveitembutton" onclick="todoassigning()" class="btn btn-default btn-success">
+            <i class="fa fa-user-circle-o"></i> 确认
+          </button>
+        </div>
+      
+       
+      </div>
+      <div class="col-sm-4 text-align-right">
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn   btn-success" onclick="closechangeassigningwindow()">
+            <i class="fa fa-chevron-left"></i>
+            @Html.L("Close")
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end toolbar -->
+  <!-- begin window body -->
+  <div class="widget-body">
+    <form id="assigning_form"
+          class="easyui-form form-horizontal padding-10"
+          method="post"
+          data-options="novalidate:true
+                            ">
+      @Html.AntiForgeryToken()
+      <!--Primary Key-->
+      @Html.HiddenFor(model => model.SelectedIds)
+      <!--节点-->
+   
+
+      <fieldset>
+        <legend>变更案件号</legend>
+        <!-- begin row -->
+        <!--档案编号-->
+        <div class="form-group  col-md-12">
+          <nav aria-label="...">
+            <ul class="pager" id="caseitems">
+              <li><a href="#">案件号</a></li>
+            </ul>
+          </nav>
+        </div>
+      </fieldset>
+ 
+      <fieldset>
+        <legend>分案处理</legend>
+        <div class="row">
+          <!--承办部门-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.ToDepartment)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.ToDepartment)"
+                     name="@Html.NameFor(model => model.ToDepartment)"
+                     value="@Html.ValueFor(model => model.ToDepartment)"
+                     tabindex="10"
+                     class="easyui-combobox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.ToDepartment)',
+								 required:true,valueField: 'Name',textField: 'Name',editable:false,
+                                 validType: 'length[0,20]'
+                                 " />
+            </div>
+          </div>
+          <!--分案时间-->
+          <div class="form-group  col-md-6" style="display:none">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.AllocateDate)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.AllocateDate)"
+                     name="@Html.NameFor(model => model.AllocateDate)"
+                     value="@Html.ValueFor(model => model.AllocateDate)"
+                     tabindex="18"
+                     class="easyui-datebox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.AllocateDate)',
+								 required:true,
+								 formatter:dateformatter" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!--承办人-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.ToUser)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.ToUser)"
+                     name="@Html.NameFor(model => model.ToUser)"
+                     value="@Html.ValueFor(model => model.ToUser)"
+                     tabindex="11"
+                     class="easyui-combobox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.ToUser)',
+								 required:true,editable:true,mode:'remote',
+                             valueField: 'FullName',
+                             textField: 'FullName',
+                                 validType: 'length[0,20]'
+                                 " />
+            </div>
+          </div>
+
+          <!--end row-->
+          <!-- begin row -->
+          <!--书记员-->
+          <div class="form-group  col-md-6">
+            <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Recorder)</label>
+            <div class="col-md-9">
+              <input id="@Html.IdFor(model => model.Recorder)"
+                     name="@Html.NameFor(model => model.Recorder)"
+                     value="@Html.ValueFor(model => model.Recorder)"
+                     tabindex="12"
+                     class="easyui-combobox"
+                     style="width:100%"
+                     type="text"
+                     data-options="prompt:'@Html.DisplayNameFor(model => model.Recorder)',
+								 required:true,editable:true,mode:'remote',
+                             valueField: 'FullName',
+                             textField: 'FullName',
+                                 validType: 'length[0,20]'
+                                 " />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+        
+    </form>
+
+    <!--end form表单界面-->
+    <!--========================================================================================-->
+  </div>
+  <!--end window body -->
+</div>
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+<!-- 弹出编辑对话框 -->
+<!--begin popup detailview javascript block -->
+<script type="text/javascript">
+  var selectedIds = null;
+  function openchangeassigningwindow(data) {
+   
+    selectedIds = data.map(item=>item.Id);
+    $('#caseitems').empty();
+    data.forEach(item => {
+      $('#caseitems').append(`&nbsp;&nbsp; <li><a href="#">${item.CaseId}</a></li> `)
+    })
+    $('#changeassigningwindow').window('open');
+    $('#assigning_form').form('reset');
+    var url = `/Courts/GetComboData?name=`;
+    
+    $('#assigning_form #ToDepartment').combobox('reload', url);
+    $('#assigning_form #ToDepartment').combobox('setValue', '执行局');
+     url = `/Courts/GetComboData?name=`;
+    $('#assigning_form #Court').combobox('reload', url);
+     url = `/Courts/GetComboData?name=`;
+    $('#assigning_form #AllocateDate').datebox('setValue', moment().format('YYYY-MM-DD HH:mm:ss'));
+      url=`/NodeConfigs/GetUsers?rolename=承办人`
+    $('#assigning_form #ToUser').combobox('reload', url);
+     url=`/NodeConfigs/GetUsers?rolename=书记员`
+      $('#assigning_form #Recorder').combobox('reload', url);
+  }
+  function todoassigning() {
+    const $caseform = $('#assigning_form');
+    if ($caseform.form('enableValidation').form('validate')) {
+      let legalcase = $caseform.serializeJSON();
+      legalcase.SelectedIds = selectedIds;
+      let url = '/LegalCases/ChangeAssigning';
+      $.messager.progress({ title: '请等待', msg: '正在变更案件...', interval: 200 });
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+          viewmodel: legalcase
+        },
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+      })
+        .done(response => {
+          $.messager.progress('close');
+          if (response.success) {
+            hook = false;
+            $caseform.form('disableValidation');
+            $dg.datagrid('unselectAll');
+            $dg.datagrid('uncheckAll');
+            $dg.datagrid('reload');
+            $('#changeassigningwindow').window("close");
+            toastr.success("完成");
+          } else {
+            $.messager.alert("错误", response.err, "error");
+          }
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+          $.messager.progress('close');
+          $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+        });
+
+    }
+  }
+  function closechangeassigningwindow() {
+    $('#changeassigningwindow').window("close");
+  }
+</script>
+

@@ -1,0 +1,320 @@
+﻿﻿@model WebApp.Models.TempCaseId
+<!-- 弹出窗体form表单 -->
+ <div id="tempcaseiddetailwindow" hidden="hidden" class="easyui-window" 
+      title="明细数据" 
+      data-options="modal:true,
+                    closed:true,
+                    minimizable:false,
+                    collapsible:false,
+                    maximized:false,
+                    iconCls:'icon-more',
+                    footer:'#windowfooter',
+                    closeDuration:200,
+                    closeAnimation:'slide',
+                    openDuration:300,
+                    openAnimation:'slide',
+                    onBeforeClose:function(){
+                      var that = $(this);
+                      if(tempcaseidhasmodified()){
+                        $.messager.confirm('确认','你确定要放弃保存修改的记录?',function(r){
+                        if (r){
+                          var opts = that.panel('options');
+                          var onBeforeClose = opts.onBeforeClose;
+                          opts.onBeforeClose = function(){};
+                          that.panel('close');
+                          opts.onBeforeClose = onBeforeClose;
+                          hook = false;
+                        }
+                        });
+                        return false;
+                      }
+                    },
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                       $(this).window('hcenter');
+                    },
+                    onRestore:function(){
+                    },
+                    onMaximize:function(){
+                    }
+                    " style="width:1020px;height:520px">
+    <!-- begin toolbar -->
+    <div class="window-body-toolbar">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="btn-group btn-group-sm">
+                       <button name="saveitembutton" onclick="savetempcaseiditem()" class="btn btn-default"> 
+                          <i class="fa fa-floppy-o"></i> @Html.L("Save") 
+                       </button>
+                </div>
+                <div class="btn-group btn-group-sm" id="deleteitem-btn-group">
+                  <button onclick="deletetempcaseiditem()" class="btn btn-danger">
+                    <i class="fa fa-trash-o"></i> @Html.L("Delete")
+                  </button>
+                </div>
+                <div class="btn-group btn-group-sm" style="display:none">
+                    <button onclick="todo()" class="btn btn-default">
+                        <i class="fa fa-print"></i> ToDo
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-4 text-align-right">
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn   btn-success" onclick="closetempcaseiddetailwindow()">
+                    <i class="fa fa-chevron-left"></i>
+                    @Html.L("Close")
+                </button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- end toolbar -->
+    <!-- begin window body -->
+    <div class="widget-body">
+           <form id="tempcaseid_form" 
+              class="easyui-form form-horizontal padding-10" 
+              method="post" 
+              data-options="novalidate:true,
+                            onChange: function(target){
+                              hook = true;
+                              $('button[name*=\'saveitembutton\']').prop('disabled', false);
+                             },
+                             onLoadSuccess:function(data){
+                               hook = false;
+                               $('button[name*=\'saveitembutton\']').prop('disabled', true);
+                             }">
+  @Html.AntiForgeryToken()
+   <!--Primary Key-->
+  @Html.HiddenFor(model=>model.Id)
+   <fieldset>
+<!-- begin row -->
+   <!--档案编号-->
+  <div class="form-group  col-md-6">
+        <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.CaseId)</label>
+		<div class="col-md-10">  
+			<input id="@Html.IdFor(model => model.CaseId)" 
+				   name="@Html.NameFor(model => model.CaseId)" 
+				   value="@Html.ValueFor(model => model.CaseId)"
+				   tabindex="0" 
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.CaseId)',
+								 required:false, 
+                                 validType: 'length[0,50]'
+                                 " />
+       </div>
+  </div>
+				      <!--案件类型-->
+  <div class="form-group  col-md-6">
+        <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Category)</label>
+		<div class="col-md-10">  
+			<input id="@Html.IdFor(model => model.Category)" 
+				   name="@Html.NameFor(model => model.Category)" 
+				   value="@Html.ValueFor(model => model.Category)"
+				   tabindex="1" 
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Category)',
+								 required:false, 
+                                 validType: 'length[0,20]'
+                                 " />
+       </div>
+  </div>
+				          <!--end row-->
+	   <!-- begin row -->
+   <!--字号-->
+  <div class="form-group  col-md-6">
+        <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.SerialNumber)</label>
+		<div class="col-md-10">  
+			<input id="@Html.IdFor(model => model.SerialNumber)" 
+				   name="@Html.NameFor(model => model.SerialNumber)" 
+				   value="@Html.ValueFor(model => model.SerialNumber)"
+				   tabindex="2" 
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.SerialNumber)',
+								 required:false, 
+                                 validType: 'length[0,5]'
+                                 " />
+       </div>
+  </div>
+				      <!--标记-->
+   <div class="form-group  col-md-6">
+       <label class="col-md-2 control-label"><span class="required">@Html.DisplayNameFor(model => model.Flag)</span></label>
+	   <div class="col-md-10">  
+			<input id="@Html.IdFor(model => model.Flag)"
+				   name="@Html.NameFor(model => model.Flag)" 
+				   value="@Html.ValueFor(model => model.Flag)"
+				   tabindex="3" 
+				   class="easyui-numberspinner" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Flag)',
+								 required:true,formatter:initformatter,
+                                 
+                                 " />
+      </div>
+   </div>
+				          <!--end row-->
+	   <!-- begin row -->
+   <!--Year-->
+  <div class="form-group  col-md-6">
+        <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Year)</label>
+		<div class="col-md-10">  
+			<input id="@Html.IdFor(model => model.Year)" 
+				   name="@Html.NameFor(model => model.Year)" 
+				   value="@Html.ValueFor(model => model.Year)"
+				   tabindex="4" 
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Year)',
+								 required:false, 
+                                 validType: 'length[0,10]'
+                                 " />
+       </div>
+  </div>
+				      <!--Expires-->
+   <div class="form-group  col-md-6">
+       <label class="col-md-2 control-label"><span class="required">@Html.DisplayNameFor(model => model.Expires)</span></label>
+	   <div class="col-md-10">  
+			<input id="@Html.IdFor(model => model.Expires)"
+				   name="@Html.NameFor(model => model.Expires)" 
+				   value="@Html.ValueFor(model => model.Expires)"
+				   tabindex="5" 
+				   class="easyui-numberspinner" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Expires)',
+								 required:true,formatter:initformatter,
+                                 
+                                 " />
+      </div>
+   </div>
+				          <!--end row-->
+	   	          </fieldset>
+   </form>
+
+<!--end form表单界面-->
+<!--========================================================================================-->
+     </div>
+    <!--end window body -->
+</div>
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+<!-- 弹出编辑对话框 -->
+
+<!--begin popup detailview javascript block -->
+<script type="text/javascript">
+    //判断新增编辑状态
+    var MODELSTATE = 'Added';
+    var tempcaseidid = null;
+    function opentempcaseiddetailwindow(data,state) {
+         MODELSTATE = state;
+         inittempcaseiddetailview();
+         tempcaseidid = (data.Id || 0);
+         $('#tempcaseiddetailwindow').window('open');
+         $('#tempcaseid_form').form('reset');
+         $('#tempcaseid_form').form('load', data);
+             }
+  //删除当前记录
+  function deletetempcaseiditem() {
+    $.messager.confirm('确认', '你确定要删除该记录?', result => {
+      if (result) {
+        const url = `/TempCaseIds/Delete/${tempcaseidid}`;
+        $.get(url).done(res => {
+          if (res.success) {
+            toastr.success("删除成功");
+            $dg.datagrid('reload');
+            $('#tempcaseiddetailwindow').window('close');
+          } else {
+            $.messager.alert('错误', res.err, 'error');
+          }
+        });
+      }
+    });
+  }
+    //async 保存数据
+    async function savetempcaseiditem() { 
+      const $tempcaseidform = $('#tempcaseid_form');
+      if ($tempcaseidform.form('enableValidation').form('validate')) {
+            let tempcaseid = $tempcaseidform.serializeJSON();
+            let url = '/TempCaseIds/Edit';
+            //判断是新增或是修改方法
+            if (MODELSTATE === 'Added') {
+                url = '/TempCaseIds/Create';
+            }
+            var token = $('input[name="__RequestVerificationToken"]', $tempcaseidform).val();
+            $.messager.progress({ title: '请等待', msg: '正在保存数据...', interval:200});
+            $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        __RequestVerificationToken: token,
+                        tempcaseid:tempcaseid
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+                })
+                .done(response => {
+                    $.messager.progress('close');
+                    if (response.success) {
+                        hook = false;
+                        $tempcaseidform.form('disableValidation');
+                        $dg.datagrid('reload');
+                        $('#tempcaseiddetailwindow').window("close");
+                        toastr.success("保存成功");  
+                    } else {
+                        $.messager.alert("错误",   response.err, "error");
+                    }
+                    })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                       $.messager.progress('close');
+                       $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+                    });
+        }
+    }
+    //关闭窗口
+    function closetempcaseiddetailwindow() {
+        $('#tempcaseiddetailwindow').window('close');
+    }
+    //todo
+    function todo() {
+         console.log('todo.....');
+    }
+     //判断是否有没有保存的记录
+     function tempcaseidhasmodified() {
+            return hook;
+
+     }
+
+
+function inittempcaseiddetailview() {
+  //判断是否显示功能按钮
+  if (MODELSTATE === 'Added') {
+    $('#deleteitem-btn-group').hide();
+  } else {
+    $('#deleteitem-btn-group').show();
+  }
+ 
+//回车光标移动到下个输入控件
+    //如果是枚举类型需要把numberbox改成combobox
+    //标记
+	$('#Flag').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //Expires
+	$('#Expires').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+}
+</script>
+

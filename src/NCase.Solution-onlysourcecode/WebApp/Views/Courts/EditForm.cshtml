@@ -1,0 +1,56 @@
+﻿﻿@model WebApp.Models.Court
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin court form  -->
+<form id="court_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--法庭名称-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+			@Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Name) } })
+      
+         </div>
+
+        <!--所在地-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Zone) </label>
+			@Html.EditorFor(x => x.Zone, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Zone) } })
+      
+         </div>
+
+        <!--地址-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Address) </label>
+			@Html.EditorFor(x => x.Address, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Address) } })
+      
+         </div>
+
+        <!--联系方式-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Contect) </label>
+			@Html.EditorFor(x => x.Contect, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Contect) } })
+      
+         </div>
+
+     
+       <!--法院ID-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CompanyId)</span> </label>
+   	        @Html.DropDownListFor(model => model.CompanyId, ViewBag.CompanyId as List<SelectListItem>, htmlAttributes: new { @class = "form-control" }) 
+       </div>
+	    
+   </div>
+  </div>
+</fieldset>
+</form>
+<!-- end court form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+

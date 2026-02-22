@@ -1,0 +1,63 @@
+﻿﻿@model WebApp.Models.TempCaseId
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin tempcaseid form  -->
+<form id="tempcaseid_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--档案编号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.CaseId) </label>
+			@Html.EditorFor(x => x.CaseId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.CaseId) } })
+      
+         </div>
+
+        <!--案件类型-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Category) </label>
+			@Html.EditorFor(x => x.Category, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Category) } })
+      
+         </div>
+
+        <!--字号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.SerialNumber) </label>
+			@Html.EditorFor(x => x.SerialNumber, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.SerialNumber) } })
+      
+         </div>
+
+		<!--标记-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Flag)</span> </label>
+            @Html.EditorFor(x => x.Flag, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Flag) } })
+
+        </div>
+
+        <!--Year-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Year) </label>
+			@Html.EditorFor(x => x.Year, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Year) } })
+      
+         </div>
+
+		<!--Expires-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Expires)</span> </label>
+            @Html.EditorFor(x => x.Expires, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Expires) } })
+
+        </div>
+	   </div>
+    </div>
+	    
+</fieldset>
+</form>
+<!-- end tempcaseid form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+

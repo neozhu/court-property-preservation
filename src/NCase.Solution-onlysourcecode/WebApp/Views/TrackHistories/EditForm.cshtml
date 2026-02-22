@@ -1,0 +1,143 @@
+﻿﻿@model WebApp.Models.TrackHistory
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin trackhistory form  -->
+<form id="trackhistory_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--档案编号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CaseId)</span> </label>
+			@Html.EditorFor(x => x.CaseId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.CaseId) } })
+      
+         </div>
+
+        <!--处理状态-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span> </label>
+			@Html.EditorFor(x => x.Status, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Status) } })
+      
+         </div>
+
+        <!--节点-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Node)</span> </label>
+			@Html.EditorFor(x => x.Node, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Node) } })
+      
+         </div>
+
+        <!--案件状态-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.NodeStatus)</span> </label>
+			@Html.EditorFor(x => x.NodeStatus, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.NodeStatus) } })
+      
+         </div>
+
+        <!--处理人-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Owner)</span> </label>
+			@Html.EditorFor(x => x.Owner, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Owner) } })
+      
+         </div>
+
+        <!--指派给-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ToUser) </label>
+			@Html.EditorFor(x => x.ToUser, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ToUser) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+       <!--开始时间-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.BeginDate)</span> </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.BeginDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.BeginDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+       <!--完成时间-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.CompletedDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.CompletedDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.CompletedDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+		<!--限期-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Expires)</span> </label>
+            @Html.EditorFor(x => x.Expires, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Expires) } })
+
+        </div>
+
+       <!--届满日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DoDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.DoDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.DoDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+		<!--实际用时-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Elapsed)</span> </label>
+            @Html.EditorFor(x => x.Elapsed, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Elapsed) } })
+
+        </div>
+
+        <!--剩余或超时-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.State) </label>
+			@Html.EditorFor(x => x.State, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.State) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--卷宗-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Comment) </label>
+			@Html.EditorFor(x => x.Comment, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Comment) } })
+      
+         </div>
+
+       <!--创建时间-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Created)</span> </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.Created, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.Created ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+	    
+   </div>
+  </div>
+</fieldset>
+</form>
+<!-- end trackhistory form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+

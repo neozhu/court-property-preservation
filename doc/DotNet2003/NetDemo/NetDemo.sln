@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDemo", "NetDemo.csproj", "{0ABA56E6-A4A7-4E87-91EE-FE78F31138CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0ABA56E6-A4A7-4E87-91EE-FE78F31138CF}.Debug|Default.ActiveCfg = Debug|Any CPU
+		{0ABA56E6-A4A7-4E87-91EE-FE78F31138CF}.Debug|Default.Build.0 = Debug|Any CPU
+		{0ABA56E6-A4A7-4E87-91EE-FE78F31138CF}.Release|Default.ActiveCfg = Release|Any CPU
+		{0ABA56E6-A4A7-4E87-91EE-FE78F31138CF}.Release|Default.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88A5C648-13D5-4693-909B-B48EE1DA380A}
+	EndGlobalSection
+EndGlobal

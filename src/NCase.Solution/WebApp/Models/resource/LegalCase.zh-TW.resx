@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+// <copyright file="LegalCaseMetadata.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2020 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>3/4/2020 9:32:16 AM </date>
+// <summary>Class representing a Metadata entity </summary>
+  -->
+<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+   </data> 
+  <data name="CaseId" xml:space="preserve">
+    <value>档案编号</value>
+   </data> 
+  <data name="Project" xml:space="preserve">
+    <value>案件名称</value>
+   </data> 
+  <data name="Category" xml:space="preserve">
+    <value>案件类型</value>
+   </data> 
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+   </data> 
+  <data name="Node" xml:space="preserve">
+    <value>节点</value>
+   </data> 
+  <data name="Expires" xml:space="preserve">
+    <value>限期</value>
+   </data> 
+  <data name="Cause" xml:space="preserve">
+    <value>案件原由</value>
+   </data> 
+  <data name="Feature" xml:space="preserve">
+    <value>案件特征</value>
+   </data> 
+  <data name="BasedOn" xml:space="preserve">
+    <value>执行依据文号</value>
+   </data> 
+  <data name="Subject" xml:space="preserve">
+    <value>执行主体</value>
+   </data> 
+  <data name="FromDepartment" xml:space="preserve">
+    <value>立案部门</value>
+   </data> 
+  <data name="ToDepartment" xml:space="preserve">
+    <value>承办部门</value>
+   </data> 
+  <data name="ToUser" xml:space="preserve">
+    <value>承办人</value>
+   </data> 
+  <data name="Recorder" xml:space="preserve">
+    <value>书记员</value>
+   </data> 
+  <data name="Examiner" xml:space="preserve">
+    <value>立案审查人</value>
+   </data> 
+  <data name="OriginCaseId" xml:space="preserve">
+    <value>原案（执行）案号</value>
+   </data> 
+  <data name="ReceiveDate" xml:space="preserve">
+    <value>收案日期</value>
+   </data> 
+  <data name="RegisterDate" xml:space="preserve">
+    <value>立案日期</value>
+   </data> 
+  <data name="PreUnderlyingAsset" xml:space="preserve">
+    <value>申请执行标的</value>
+   </data> 
+  <data name="AllocateDate" xml:space="preserve">
+    <value>分案时间</value>
+   </data> 
+  <data name="PreCloseDate" xml:space="preserve">
+    <value>应结案日期</value>
+   </data> 
+  <data name="ClosedDate" xml:space="preserve">
+    <value>结案日期</value>
+   </data> 
+  <data name="CloseType" xml:space="preserve">
+    <value>结案方式</value>
+   </data> 
+  <data name="UnderlyingAsset" xml:space="preserve">
+    <value>结案标的</value>
+   </data> 
+  <data name="Court" xml:space="preserve">
+    <value>所属法庭</value>
+   </data> 
+  <data name="Org" xml:space="preserve">
+    <value>所属法院</value>
+   </data> 
+  <data name="Accuser" xml:space="preserve">
+    <value>申请保全人</value>
+   </data> 
+  <data name="AccuserAddress" xml:space="preserve">
+    <value>申请保全人地址</value>
+   </data> 
+  <data name="Defendant" xml:space="preserve">
+    <value>被保全人</value>
+   </data> 
+  <data name="DefendantAddress" xml:space="preserve">
+    <value>被保全人地址</value>
+   </data> 
+  <data name="Receivable" xml:space="preserve">
+    <value>应收执行费</value>
+   </data> 
+  <data name="Received" xml:space="preserve">
+    <value>已收执行费</value>
+   </data> 
+  <data name="Opinion1" xml:space="preserve">
+    <value>承办人意见</value>
+   </data> 
+  <data name="Opinion2" xml:space="preserve">
+    <value>立案组意见</value>
+   </data> 
+  <data name="Opinion3" xml:space="preserve">
+    <value>院长批示</value>
+   </data> 
+  <data name="Comment" xml:space="preserve">
+    <value>备注</value>
+   </data> 
+  <data name="Proposer" xml:space="preserve">
+    <value>填表人</value>
+   </data> 
+  <data name="FilingDate" xml:space="preserve">
+    <value>填表日期</value>
+   </data> 
+  <data name="ToDoDate" xml:space="preserve">
+    <value>节点开始时间</value>
+   </data> 
+</root>

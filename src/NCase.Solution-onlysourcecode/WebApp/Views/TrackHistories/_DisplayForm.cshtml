@@ -1,0 +1,165 @@
+﻿﻿@model WebApp.Models.TrackHistory
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin trackhistory form  -->
+<form id="trackhistory_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--档案编号-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CaseId)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CaseId)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--处理状态-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Status)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--节点-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Node)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Node)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--案件状态-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.NodeStatus)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.NodeStatus)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--处理人-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Owner)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Owner)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--指派给-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.ToUser) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ToUser)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--开始时间-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.BeginDate)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.BeginDate)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--完成时间-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.CompletedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.CompletedDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--限期-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Expires)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Expires)
+			    </label>
+            </section>
+		 
+	    
+			              <!--届满日期-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.DoDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.DoDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--实际用时-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Elapsed)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Elapsed)
+			    </label>
+            </section>
+		 
+	    
+			              <!--剩余或超时-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.State) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.State)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--卷宗-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Comment) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Comment)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--创建时间-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Created)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.Created)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+	    
+</fieldset>
+</form>
+<!-- end trackhistory form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

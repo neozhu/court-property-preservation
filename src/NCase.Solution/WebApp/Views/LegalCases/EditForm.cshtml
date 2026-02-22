@@ -1,0 +1,346 @@
+﻿﻿@model WebApp.Models.LegalCase
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin legalcase form  -->
+<form id="legalcase_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--档案编号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CaseId)</span> </label>
+			@Html.EditorFor(x => x.CaseId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.CaseId) } })
+      
+         </div>
+
+        <!--案件名称-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Project) </label>
+			@Html.EditorFor(x => x.Project, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Project) } })
+      
+         </div>
+
+        <!--案件类型-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Category)</span> </label>
+			@Html.EditorFor(x => x.Category, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Category) } })
+      
+         </div>
+
+        <!--状态-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span> </label>
+			@Html.EditorFor(x => x.Status, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Status) } })
+      
+         </div>
+
+        <!--节点-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Node) </label>
+			@Html.EditorFor(x => x.Node, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Node) } })
+      
+         </div>
+
+		<!--限期-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Expires)</span> </label>
+            @Html.EditorFor(x => x.Expires, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Expires) } })
+
+        </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--案件原由-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Cause) </label>
+			@Html.EditorFor(x => x.Cause, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Cause) } })
+      
+         </div>
+
+        <!--案件特征-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Feature) </label>
+			@Html.EditorFor(x => x.Feature, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Feature) } })
+      
+         </div>
+
+        <!--执行依据文号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.BasedOn) </label>
+			@Html.EditorFor(x => x.BasedOn, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.BasedOn) } })
+      
+         </div>
+
+        <!--执行主体-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Subject) </label>
+			@Html.EditorFor(x => x.Subject, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Subject) } })
+      
+         </div>
+
+        <!--立案部门-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.FromDepartment) </label>
+			@Html.EditorFor(x => x.FromDepartment, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.FromDepartment) } })
+      
+         </div>
+
+        <!--承办部门-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ToDepartment) </label>
+			@Html.EditorFor(x => x.ToDepartment, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ToDepartment) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--承办人-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ToUser) </label>
+			@Html.EditorFor(x => x.ToUser, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ToUser) } })
+      
+         </div>
+
+        <!--书记员-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Recorder) </label>
+			@Html.EditorFor(x => x.Recorder, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Recorder) } })
+      
+         </div>
+
+        <!--立案审查人-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Examiner) </label>
+			@Html.EditorFor(x => x.Examiner, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Examiner) } })
+      
+         </div>
+
+        <!--原案（执行）案号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.OriginCaseId) </label>
+			@Html.EditorFor(x => x.OriginCaseId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.OriginCaseId) } })
+      
+         </div>
+
+       <!--收案日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ReceiveDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.ReceiveDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.ReceiveDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+       <!--立案日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.RegisterDate)</span> </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.RegisterDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.RegisterDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		<!--申请执行标的-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.PreUnderlyingAsset)</span> </label>
+            @Html.EditorFor(x => x.PreUnderlyingAsset, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.PreUnderlyingAsset) } })
+
+        </div>
+
+       <!--分案时间-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.AllocateDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.AllocateDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.AllocateDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+       <!--应结案日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.PreCloseDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.PreCloseDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.PreCloseDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+       <!--结案日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ClosedDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.ClosedDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.ClosedDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+        <!--结案方式-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.CloseType) </label>
+			@Html.EditorFor(x => x.CloseType, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.CloseType) } })
+      
+         </div>
+
+		<!--结案标的-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.UnderlyingAsset)</span> </label>
+            @Html.EditorFor(x => x.UnderlyingAsset, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.UnderlyingAsset) } })
+
+        </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--所属法庭-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Court) </label>
+			@Html.EditorFor(x => x.Court, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Court) } })
+      
+         </div>
+
+        <!--所属法院-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Org) </label>
+			@Html.EditorFor(x => x.Org, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Org) } })
+      
+         </div>
+
+        <!--申请保全人-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Accuser) </label>
+			@Html.EditorFor(x => x.Accuser, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Accuser) } })
+      
+         </div>
+
+        <!--申请保全人地址-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.AccuserAddress) </label>
+			@Html.EditorFor(x => x.AccuserAddress, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.AccuserAddress) } })
+      
+         </div>
+
+        <!--被保全人-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Defendant) </label>
+			@Html.EditorFor(x => x.Defendant, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Defendant) } })
+      
+         </div>
+
+        <!--被保全人地址-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DefendantAddress) </label>
+			@Html.EditorFor(x => x.DefendantAddress, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DefendantAddress) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		<!--应收执行费-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Receivable)</span> </label>
+            @Html.EditorFor(x => x.Receivable, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Receivable) } })
+
+        </div>
+
+		<!--已收执行费-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Received)</span> </label>
+            @Html.EditorFor(x => x.Received, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Received) } })
+
+        </div>
+
+        <!--承办人意见-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Opinion1) </label>
+			@Html.EditorFor(x => x.Opinion1, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Opinion1) } })
+      
+         </div>
+
+        <!--立案组意见-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Opinion2) </label>
+			@Html.EditorFor(x => x.Opinion2, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Opinion2) } })
+      
+         </div>
+
+        <!--院长批示-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Opinion3) </label>
+			@Html.EditorFor(x => x.Opinion3, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Opinion3) } })
+      
+         </div>
+
+        <!--备注-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Comment) </label>
+			@Html.EditorFor(x => x.Comment, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Comment) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--填表人-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Proposer) </label>
+			@Html.EditorFor(x => x.Proposer, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Proposer) } })
+      
+         </div>
+
+       <!--填表日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.FilingDate)</span> </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.FilingDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.FilingDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+       <!--节点开始时间-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.ToDoDate)</span> </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.ToDoDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.ToDoDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+	    
+   </div>
+  </div>
+</fieldset>
+</form>
+<!-- end legalcase form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+

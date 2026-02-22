@@ -1,0 +1,72 @@
+﻿﻿@model WebApp.Models.Court
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin court form  -->
+<form id="court_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--法庭名称-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Name)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--所在地-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Zone) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Zone)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--地址-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Address) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Address)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--联系方式-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Contect) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Contect)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+            <!--法院ID-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CompanyId)</span> </label>
+            <label class="label">
+			      @Html.DisplayFor(model => model.CompanyId)
+			</label>
+            </section>
+			 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end court form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

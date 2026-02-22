@@ -1,0 +1,419 @@
+﻿﻿@model WebApp.Models.LegalCase
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin legalcase form  -->
+<form id="legalcase_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--档案编号-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CaseId)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CaseId)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--案件名称-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Project) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Project)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--案件类型-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Category)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Category)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--状态-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Status)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--节点-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Node) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Node)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--限期-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Expires)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Expires)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			              <!--案件原由-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Cause) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Cause)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--案件特征-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Feature) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Feature)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--执行依据文号-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.BasedOn) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.BasedOn)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--执行主体-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Subject) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Subject)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--立案部门-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.FromDepartment) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.FromDepartment)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--承办部门-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.ToDepartment) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ToDepartment)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--承办人-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.ToUser) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ToUser)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--书记员-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Recorder) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Recorder)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--立案审查人-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Examiner) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Examiner)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--原案（执行）案号-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.OriginCaseId) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.OriginCaseId)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--收案日期-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.ReceiveDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.ReceiveDate)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--立案日期-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.RegisterDate)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.RegisterDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--申请执行标的-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.PreUnderlyingAsset)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.PreUnderlyingAsset)
+			    </label>
+            </section>
+		 
+	    
+			              <!--分案时间-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.AllocateDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.AllocateDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			              <!--应结案日期-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.PreCloseDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.PreCloseDate)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--结案日期-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.ClosedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.ClosedDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			              <!--结案方式-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.CloseType) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CloseType)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--结案标的-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.UnderlyingAsset)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.UnderlyingAsset)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			              <!--所属法庭-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Court) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Court)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--所属法院-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Org) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Org)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--申请保全人-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Accuser) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Accuser)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--申请保全人地址-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.AccuserAddress) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.AccuserAddress)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--被保全人-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Defendant) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Defendant)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--被保全人地址-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.DefendantAddress) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DefendantAddress)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--应收执行费-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Receivable)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Receivable)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--已收执行费-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Received)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Received)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			              <!--承办人意见-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Opinion1) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Opinion1)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--立案组意见-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Opinion2) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Opinion2)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--院长批示-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Opinion3) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Opinion3)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--备注-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Comment) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Comment)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--填表人-->
+            <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Proposer) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Proposer)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--填表日期-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.FilingDate)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.FilingDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			              <!--节点开始时间-->
+            <section class="col col-6">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ToDoDate)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.ToDoDate)
+			    </label>
+            </section>
+			  		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end legalcase form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+
